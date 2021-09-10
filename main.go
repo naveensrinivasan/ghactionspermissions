@@ -78,6 +78,7 @@ func main() {
 							fmt.Println("permissions:")
 							continue
 						} else if shouldPrint && strings.Contains(scanner.Text(), "##[endgroup]") {
+							fmt.Println("-------------------------------------------------------------------")
 							break
 						}
 						if shouldPrint {
