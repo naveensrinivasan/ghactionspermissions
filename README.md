@@ -13,28 +13,31 @@ This is one of the checks for in `scorecard` to set correct permissions to avoid
 
 `export GITHUB_TOKEN=personalaccesstoken` https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
+`docker run -e GITHUB_AUTH_TOKEN=$GITHUB_TOKEN ghcr.io/naveensrinivasan/ghactionspermissions:latest ossf scorecard`
+
 ```
-go run main.go ossf scorecard
 CodeQL .github/workflows/codeql-analysis.yml
 permissions:
    contents: read
    metadata: read
-   securityevents: read
-   statuses: read
+   securityevents: write
+   statuses: write
+-------------------------------------------------------------------
 build .github/workflows/main.yml
 permissions:
-   actions: read
-   checks: read
-   contents: read
-   deployments: read
-   discussions: read
-   issues: read
+   actions: write
+   checks: write
+   contents: write
+   deployments: write
+   discussions: write
+   issues: write
    metadata: read
-   packages: read
-   pullrequests: read
-   repositoryprojects: read
-   securityevents: read
-   statuses: read
+   packages: write
+   pullrequests: write
+   repositoryprojects: write
+   securityevents: write
+   statuses: write
+-------------------------------------------------------------------
 goreleaser .github/workflows/goreleaser.yaml
 permissions:
    actions: write
@@ -49,6 +52,7 @@ permissions:
    repositoryprojects: write
    securityevents: write
    statuses: write
+-------------------------------------------------------------------
 Close stale issues .github/workflows/stale.yml
 permissions:
    actions: write
@@ -63,11 +67,26 @@ permissions:
    repositoryprojects: write
    securityevents: write
    statuses: write
+-------------------------------------------------------------------
 Integration-tests .github/workflows/e2etests.yml
-2021/09/10 01:44:55 Unable to fetch logs not a 200 status 502
+2021/09/10 21:09:38 Unable to fetch logs not a 200 status 502
 Codescanning .github/workflows/codescan.yml
-2021/09/10 01:44:56 Unable to fetch logs not a 200 status 410
+2021/09/10 21:09:39 Unable to fetch logs not a 200 status 410
 Integration tests .github/workflows/integration.yml
+permissions:
+   actions: write
+   checks: write
+   contents: write
+   deployments: write
+   discussions: write
+   issues: write
+   metadata: read
+   packages: write
+   pullrequests: write
+   repositoryprojects: write
+   securityevents: write
+   statuses: write
+-------------------------------------------------------------------
 Ok To Test .github/workflows/ok-to-test.yml
 PR Verifier .github/workflows/verify.yml
 permissions:
@@ -83,4 +102,5 @@ permissions:
    repositoryprojects: write
    securityevents: write
    statuses: write
+-------------------------------------------------------------------
 ```
